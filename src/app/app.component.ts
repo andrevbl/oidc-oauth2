@@ -34,6 +34,10 @@ export class AppComponent implements OnInit{
       if (url.searchParams.has('state') && url.searchParams.has('session_state') && url.searchParams.has('code')) {
         if (environment.sso.log) console.log("(KC) Error while obtaining access token!");
       }
+      else {
+        if (environment.sso.log) console.log("(KC) Calling login page...");
+        this.keycloak.login( { scope: environment.sso.scope } );
+      }
     }
   }
 
@@ -52,6 +56,10 @@ export class AppComponent implements OnInit{
       let url = new URL(window.location.href);
       if (url.searchParams.has('state') && url.searchParams.has('session_state') && url.searchParams.has('code')) {
         if (environment.sso.log) console.log("(OA) Error while obtaining access token!");
+      }
+      else {
+        if (environment.sso.log) console.log("(OA) Calling login page...");
+        this.oauthService.loadDiscoveryDocumentAndLogin()
       }
     }
   }
